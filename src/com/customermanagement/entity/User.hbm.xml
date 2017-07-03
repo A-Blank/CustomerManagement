@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.customermanagement.entity.User" table="user">
+		<id name="uid" column="uid">
+            <generator class="native" />
+        </id>
+        <property name="username" column="username" length="20"/>
+        <property name="password" column="password" length="20"/>
+        <property name="sex" column="sex" length="10"/>
+        <property name="birthday" column="birthday"/>
+        <property name="description" column="description" length="150"/>
+        <property name="isAdmin" column="isAdmin"/>
+	</class>
+</hibernate-mapping>

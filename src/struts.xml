@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	
+	<constant name="struts.enble.DynamicMethodInvocation" value="false"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+	
+    <package name="default" extends="struts-default" namespace="/">
+        
+	    
+	    <!-- 注册拦截器 -->
+        <interceptors>
+        	<interceptor name="auth" class="com.customermanagement.interceptor.AuthInterceptor">
+            	<param name="excludeMethods">login</param>  
+            </interceptor>
+            
+        <!-- 自定义拦截器栈 -->
+        <interceptor-stack name="myStack">
+	        <interceptor-ref name="defaultStack"></interceptor-ref>
+	        <interceptor-ref name="auth"></interceptor-ref>
+        </interceptor-stack>
+        </interceptors>
+	    
+	     <!-- 通配符使用必要 -->
+	    <global-allowed-methods>regex:.*</global-allowed-methods>
+	    
+	    <action name="*" class="userAction" method="{1}" >
+	    	<result name="login" type="redirect">/login.jsp</result>
+		    <result name="adminIndex" type="dispatcher">/WEB-INF/Admin/index.jsp</result>
+		    <result name="insert">/WEB-INF/Admin/add.jsp</result>
+		    <result name="userList"  type="dispatcher">/WEB-INF/index/userList.jsp</result>
+		    <result name="edit">/WEB-INF/Admin/edit.jsp</result>
+		    <!-- 引用自定义的拦截器栈 -->
+		    <interceptor-ref name="myStack"></interceptor-ref>
+	    </action>	    	    
+	    
+    </package>
+
+</struts>
